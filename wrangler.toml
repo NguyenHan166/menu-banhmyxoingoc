@@ -1,0 +1,8 @@
+# Cloudflare Pages configuration
+name = "banh-my-xoi-ngoc"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# For local development with wrangler pages dev
+[vars]
+MENU_API_URL = "https://apimenu.nguyenvanhan.io.vn/api/menu"

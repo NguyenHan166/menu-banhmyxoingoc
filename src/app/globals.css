@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Quicksand:wght@500;600;700&display=swap");
+
+:root {
+    --color-primary: #f59e0b;
+    --color-primary-dark: #d97706;
+    --color-accent: #1f2937;
+    --color-bg: #fffbeb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Be Vietnam Pro", system-ui, sans-serif;
+    background: linear-gradient(180deg, #fffcf0 0%, #ffffff 30%, #fffbeb 100%);
+    min-height: 100vh;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+.font-heading {
+    font-family: "Quicksand", "Be Vietnam Pro", sans-serif;
+    font-weight: 700;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #f59e0b, #d97706);
+    border-radius: 3px;
+}
+
+/* Hide scrollbar for category nav */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Glass effect */
+.glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Button styles */
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2.5 px-7 py-4
+           bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500
+           text-white font-semibold rounded-2xl
+           shadow-lg shadow-amber-500/30
+           hover:shadow-xl hover:shadow-amber-500/40
+           transform hover:-translate-y-1 active:translate-y-0
+           transition-all duration-300
+           text-base;
+        background-size: 200% 100%;
+        animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+        0%,
+        100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2.5 px-7 py-4
+           bg-white text-gray-800 font-semibold rounded-2xl
+           border-2 border-amber-400
+           shadow-md hover:shadow-lg
+           hover:bg-amber-50 hover:border-amber-500
+           transform hover:-translate-y-1
+           transition-all duration-300
+           text-base;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 px-5 py-3
+           text-gray-600 font-medium rounded-xl
+           hover:bg-amber-50 hover:text-amber-700
+           transition-all duration-200
+           text-sm;
+    }
+
+    .btn-icon {
+        @apply inline-flex items-center justify-center
+           w-14 h-14 rounded-2xl
+           bg-white shadow-md border border-gray-100
+           hover:shadow-lg hover:border-amber-300 hover:bg-amber-50
+           transform hover:-translate-y-1
+           transition-all duration-300;
+    }
+}
+
+/* Card styles */
+@layer components {
+    .card {
+        @apply bg-white rounded-3xl shadow-sm border border-gray-100/80
+           overflow-hidden;
+    }
+
+    .card-hover {
+        @apply card hover:shadow-lg hover:border-amber-200/50
+           transform hover:-translate-y-0.5
+           transition-all duration-200;
+    }
+}
+
+/* Category chip */
+.category-chip {
+    @apply px-6 py-3 rounded-2xl text-sm font-semibold
+         whitespace-nowrap transition-all duration-300
+         cursor-pointer select-none;
+}
+
+.category-chip.active {
+    @apply bg-gradient-to-r from-amber-500 to-orange-500 text-white
+         shadow-lg shadow-amber-500/30
+         transform scale-105;
+}
+
+.category-chip:not(.active) {
+    @apply bg-white text-gray-600 border border-gray-200
+         hover:border-amber-300 hover:text-amber-700 hover:bg-amber-50
+         hover:shadow-md;
+}
+
+/* Menu item animation */
+.menu-item {
+    animation: fadeSlideIn 0.4s ease-out backwards;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section divider */
+.section-divider {
+    @apply flex items-center gap-4 my-10;
+}
+
+.section-divider::before,
+.section-divider::after {
+    content: "";
+    @apply flex-1 h-px bg-gradient-to-r from-transparent via-amber-300/60 to-transparent;
+}
+
+/* Info card */
+.info-card {
+    @apply bg-gradient-to-br from-amber-50 to-orange-50 
+         border-2 border-amber-200/60 rounded-3xl p-6
+         shadow-sm;
+}
+
+/* Notice card */
+.notice-card {
+    @apply bg-gradient-to-br from-slate-50 to-gray-50
+         border-2 border-gray-200/80 rounded-3xl p-6 md:p-8
+         shadow-sm;
+}
+
+/* Floating CTA */
+.floating-cta {
+    @apply fixed bottom-0 left-0 right-0 z-50 p-4
+         backdrop-blur-xl 
+         border-t border-gray-100
+         shadow-[0_-8px_30px_rgba(0,0,0,0.08)]
+         md:hidden;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* Topping chip */
+.topping-chip {
+    @apply inline-flex items-center gap-2 px-5 py-3
+         bg-gradient-to-r from-amber-50 to-orange-50 
+         border-2 border-amber-200/60 rounded-2xl
+         hover:border-amber-300 hover:shadow-md
+         transition-all duration-200;
+}
