@@ -27,16 +27,24 @@ export default function MenuSection({
         [items]
     );
 
-    // Get unique categories in order
+    // Get unique categories in order - XÔI first
     const categories = useMemo(() => {
         const seen = new Set<string>();
-        return availableItems
+        const allCategories = availableItems
             .map((item) => item.category)
             .filter((cat) => {
                 if (seen.has(cat)) return false;
                 seen.add(cat);
                 return true;
             });
+
+        // Move "XÔI" to first position
+        const xoiIndex = allCategories.indexOf("XÔI");
+        if (xoiIndex > 0) {
+            allCategories.splice(xoiIndex, 1);
+            allCategories.unshift("XÔI");
+        }
+        return allCategories;
     }, [availableItems]);
 
     // Set default active category
@@ -121,14 +129,14 @@ export default function MenuSection({
                     </div>
                 </div>
 
-                {/* Category Tabs - Horizontal scroll */}
+                {/* Category Tabs - Grid 2x2 on mobile, flex on larger screens */}
                 {!searchQuery && (
-                    <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-4 -mx-4 px-4">
+                    <div className="grid grid-cols-2 sm:flex gap-2 pb-4">
                         {categories.map((category) => (
                             <button
                                 key={category}
                                 onClick={() => setActiveCategory(category)}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                                className={`px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 text-center ${
                                     activeCategory === category
                                         ? "bg-amber-500 text-white shadow-md"
                                         : "bg-white text-gray-600 border border-gray-200 hover:border-amber-300 hover:text-amber-700"
