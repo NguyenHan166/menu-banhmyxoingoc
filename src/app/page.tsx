@@ -63,32 +63,116 @@ export default async function HomePage() {
         <main className="min-h-screen pb-8">
             {/* Compact Header */}
             <header className="sticky top-0 z-50 glass border-b border-amber-100/50">
-                <div className="max-w-2xl mx-auto px-3 py-2.5">
-                    <div className="flex items-center justify-between gap-2">
-                        {/* Logo + Name */}
-                        <div className="flex items-center gap-2 min-w-0">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 relative flex-shrink-0">
-                                <Image
-                                    src="/logo.png"
-                                    alt={RESTAURANT_NAME}
-                                    fill
-                                    className="object-contain"
-                                    priority
-                                />
+                <div className="max-w-2xl mx-auto px-3 py-2">
+                    {/* Mobile: 2 rows, Desktop: 1 row */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        {/* Row 1: Logo + Name */}
+                        <div className="flex items-center justify-between sm:justify-start gap-2">
+                            <div className="flex items-center gap-2 min-w-0">
+                                <div className="w-9 h-9 sm:w-12 sm:h-12 relative flex-shrink-0">
+                                    <Image
+                                        src="/logo.png"
+                                        alt={RESTAURANT_NAME}
+                                        fill
+                                        className="object-contain"
+                                        priority
+                                    />
+                                </div>
+                                <div className="min-w-0">
+                                    <h1 className="font-heading text-base sm:text-lg font-bold text-gray-900 leading-tight">
+                                        {RESTAURANT_NAME}
+                                    </h1>
+                                    <p className="text-[10px] sm:text-xs text-amber-600 font-medium">
+                                        {RESTAURANT_TAGLINE}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="min-w-0">
-                                <h1 className="font-heading text-sm sm:text-lg font-bold text-gray-900 leading-tight truncate">
-                                    {RESTAURANT_NAME}
-                                </h1>
-                                <p className="text-xs text-amber-600 font-medium hidden sm:block">
-                                    {RESTAURANT_TAGLINE}
-                                </p>
+
+                            {/* Mobile only: Quick actions in row 1 */}
+                            <div className="flex sm:hidden items-center gap-1">
+                                <a
+                                    href="https://www.facebook.com/61573438988182"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center w-10 h-8 rounded-lg bg-blue-600 text-white shadow-sm hover:bg-blue-700 transition-colors"
+                                    title="Facebook"
+                                >
+                                    <svg
+                                        className="w-4 h-4"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </a>
+                                <a
+                                    href={mapsUrl1}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-0.5 px-1.5 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-sm hover:from-amber-600 hover:to-orange-700 transition-all"
+                                    title="Cơ sở 1"
+                                >
+                                    <svg
+                                        className="w-3.5 h-3.5 animate-bounce-subtle"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                        />
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                    <span className="text-[9px] font-bold">
+                                        CS1
+                                    </span>
+                                </a>
+                                {mapsUrl2 && (
+                                    <a
+                                        href={mapsUrl2}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-0.5 px-1.5 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-sm hover:from-orange-600 hover:to-red-600 transition-all"
+                                        title="Cơ sở 2"
+                                    >
+                                        <svg
+                                            className="w-3.5 h-3.5 animate-bounce-subtle"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            style={{ animationDelay: "0.3s" }}
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                            />
+                                        </svg>
+                                        <span className="text-[9px] font-bold">
+                                            CS2
+                                        </span>
+                                    </a>
+                                )}
                             </div>
                         </div>
 
-                        {/* Quick Actions: Maps + Facebook */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                            {/* Facebook */}
+                        {/* Desktop only: Quick actions */}
+                        <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
                             <a
                                 href="https://www.facebook.com/61573438988182"
                                 target="_blank"
@@ -104,12 +188,11 @@ export default async function HomePage() {
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                 </svg>
                             </a>
-                            {/* Map button 1 */}
                             <a
                                 href={mapsUrl1}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-1 w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md hover:from-amber-600 hover:to-orange-700 transition-all"
+                                className="flex items-center gap-1 px-3 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md hover:from-amber-600 hover:to-orange-700 transition-all"
                                 title="Cơ sở 1 - Phùng Khoang"
                             >
                                 <svg
@@ -131,15 +214,14 @@ export default async function HomePage() {
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                     />
                                 </svg>
-                                <span className="text-xs font-bold">1</span>
+                                <span className="text-xs font-bold">CS1</span>
                             </a>
-                            {/* Map button 2 */}
                             {mapsUrl2 && (
                                 <a
                                     href={mapsUrl2}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-1 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-md hover:from-orange-600 hover:to-red-600 transition-all"
+                                    className="flex items-center gap-1 px-3 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-md hover:from-orange-600 hover:to-red-600 transition-all"
                                     title="Cơ sở 2 - Nguyễn Khang"
                                 >
                                     <svg
@@ -162,7 +244,9 @@ export default async function HomePage() {
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                         />
                                     </svg>
-                                    <span className="text-xs font-bold">2</span>
+                                    <span className="text-xs font-bold">
+                                        CS2
+                                    </span>
                                 </a>
                             )}
                         </div>
