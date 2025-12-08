@@ -21,7 +21,9 @@ export interface Topping {
 export interface MenuMeta {
     note_xoi_default: string;
     hotline: string;
-    address: string;
+    address: string; // backward compatibility
+    address1?: string; // cơ sở 1
+    address2?: string; // cơ sở 2
     time_open: string;
     time_close: string;
 }

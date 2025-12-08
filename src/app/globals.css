@@ -207,14 +207,103 @@ h3,
          shadow-sm;
 }
 
-/* Floating CTA */
-.floating-cta {
-    @apply fixed bottom-0 left-0 right-0 z-50 p-4
-         backdrop-blur-xl 
-         border-t border-gray-100
-         shadow-[0_-8px_30px_rgba(0,0,0,0.08)]
-         md:hidden;
-    background: rgba(255, 255, 255, 0.98);
+/* Floating Contact Button - Bottom Right */
+.floating-contact {
+    @apply fixed z-50 flex flex-col gap-3;
+    bottom: 24px;
+    right: 16px;
+}
+
+@media (min-width: 768px) {
+    .floating-contact {
+        bottom: 32px;
+        right: 32px;
+    }
+}
+
+.floating-contact-btn {
+    @apply flex items-center justify-center w-14 h-14 rounded-full shadow-lg
+           transition-all duration-300 hover:scale-110 active:scale-95;
+}
+
+.floating-contact-btn.phone {
+    @apply bg-gradient-to-br from-amber-400 to-orange-500;
+    animation: shake 2s ease-in-out infinite,
+        pulse-ring-amber 2s ease-out infinite;
+}
+
+.floating-contact-btn.zalo {
+    animation: shake 2.5s ease-in-out infinite,
+        pulse-ring-blue 2.5s ease-out infinite;
+}
+
+/* Shake animation */
+@keyframes shake {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    5% {
+        transform: rotate(-8deg);
+    }
+    10% {
+        transform: rotate(8deg);
+    }
+    15% {
+        transform: rotate(-8deg);
+    }
+    20% {
+        transform: rotate(8deg);
+    }
+    25% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Bounce subtle animation for map icons */
+@keyframes bounce-subtle {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.animate-bounce-subtle {
+    animation: bounce-subtle 1.5s ease-in-out infinite;
+}
+
+/* Pulse ring animations */
+@keyframes pulse-ring-amber {
+    0% {
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7),
+            0 8px 24px rgba(251, 146, 60, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(251, 191, 36, 0),
+            0 8px 24px rgba(251, 146, 60, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0),
+            0 8px 24px rgba(251, 146, 60, 0.4);
+    }
+}
+
+@keyframes pulse-ring-blue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(41, 98, 255, 0.6),
+            0 8px 24px rgba(41, 98, 255, 0.3);
+    }
+    70% {
+        box-shadow: 0 0 0 12px rgba(41, 98, 255, 0),
+            0 8px 24px rgba(41, 98, 255, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(41, 98, 255, 0),
+            0 8px 24px rgba(41, 98, 255, 0.3);
+    }
 }
 
 /* Topping chip */

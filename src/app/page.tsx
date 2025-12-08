@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { MenuData } from "@/lib/types";
 import MenuSection from "@/components/MenuSection";
-import FloatingCTA from "@/components/FloatingCTA";
+import FloatingContact from "@/components/FloatingCTA";
 import {
     RESTAURANT_NAME,
     RESTAURANT_TAGLINE,
-    getZaloUrl,
-    getTelUrl,
     DEFAULT_MAPS_URL,
+    getTelUrl,
+    getZaloUrl,
 } from "@/lib/utils";
 
 export const runtime = "edge";
@@ -38,18 +38,29 @@ async function getMenuData(): Promise<MenuData | null> {
 
 export default async function HomePage() {
     const menuData = await getMenuData();
-    const mapsUrl = process.env.NEXT_PUBLIC_MAPS_URL || DEFAULT_MAPS_URL;
+    const mapsUrl1 =
+        process.env.NEXT_PUBLIC_MAPS_URL1 ||
+        process.env.NEXT_PUBLIC_MAPS_URL ||
+        DEFAULT_MAPS_URL;
+    const mapsUrl2 = process.env.NEXT_PUBLIC_MAPS_URL2 || "";
 
     const meta = menuData?.meta || {
         hotline: "0386983357",
-        address: "146 Phùng Khoang - Đại Mỗ - HN",
+        address:
+            "146 P. Phùng Khoang, P. Văn Quán, Nam Từ Liêm, Hà Nội, Việt Nam",
+        address1: "Cơ sở 1: 146 P. Phùng Khoang, Văn Quán, Nam Từ Liêm, Hà Nội",
+        address2: "Cơ sở 2: 259 Đ. Nguyễn Khang, Yên Hoà, Cầu Giấy, Hà Nội",
         time_open: "07:00",
         time_close: "22:00",
         note_xoi_default: "",
     };
 
+    // Get addresses
+    const address1 = meta.address1 || meta.address;
+    const address2 = meta.address2;
+
     return (
-        <main className="min-h-screen pb-24 md:pb-8">
+        <main className="min-h-screen pb-8">
             {/* Compact Header */}
             <header className="sticky top-0 z-50 glass border-b border-amber-100/50">
                 <div className="max-w-2xl mx-auto px-3 py-2.5">
@@ -75,42 +86,9 @@ export default async function HomePage() {
                             </div>
                         </div>
 
-                        {/* Quick Actions */}
+                        {/* Quick Actions: Maps + Facebook */}
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                            <a
-                                href={getTelUrl(meta.hotline)}
-                                className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500 text-white shadow-md hover:bg-amber-600 transition-colors"
-                                title="Gọi đặt món"
-                            >
-                                <svg
-                                    className="w-5 h-5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href={getZaloUrl(meta.hotline)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-500 text-white shadow-md hover:bg-blue-600 transition-colors"
-                                title="Chat Zalo"
-                            >
-                                <svg
-                                    className="w-5 h-5"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                >
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-                                </svg>
-                            </a>
+                            {/* Facebook */}
                             <a
                                 href="https://www.facebook.com/61573438988182"
                                 target="_blank"
@@ -126,43 +104,148 @@ export default async function HomePage() {
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                 </svg>
                             </a>
+                            {/* Map button 1 */}
+                            <a
+                                href={mapsUrl1}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-1 w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md hover:from-amber-600 hover:to-orange-700 transition-all"
+                                title="Cơ sở 1 - Phùng Khoang"
+                            >
+                                <svg
+                                    className="w-4 h-4 animate-bounce-subtle"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                </svg>
+                                <span className="text-xs font-bold">1</span>
+                            </a>
+                            {/* Map button 2 */}
+                            {mapsUrl2 && (
+                                <a
+                                    href={mapsUrl2}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-1 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-md hover:from-orange-600 hover:to-red-600 transition-all"
+                                    title="Cơ sở 2 - Nguyễn Khang"
+                                >
+                                    <svg
+                                        className="w-4 h-4 animate-bounce-subtle"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        style={{ animationDelay: "0.3s" }}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                        />
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                    <span className="text-xs font-bold">2</span>
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
             </header>
 
-            {/* Info Bar */}
+            {/* Info Bar - Addresses & Time */}
             <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-b border-amber-100/50">
                 <div className="max-w-2xl mx-auto px-4 py-3">
-                    <div className="flex items-center justify-center gap-4 sm:gap-8 text-sm">
-                        <a
-                            href={mapsUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-gray-700 hover:text-amber-700 transition-colors"
-                        >
-                            <svg
-                                className="w-4 h-4 text-amber-500"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm">
+                        {/* Addresses */}
+                        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                            <a
+                                href={mapsUrl1}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1.5 text-gray-700 hover:text-amber-700 transition-colors"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                />
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                            </svg>
-                            <span className="font-medium">{meta.address}</span>
-                        </a>
-                        <span className="text-gray-300">|</span>
+                                <svg
+                                    className="w-4 h-4 text-amber-500 flex-shrink-0"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                </svg>
+                                <span className="font-medium text-xs sm:text-sm">
+                                    {address1}
+                                </span>
+                            </a>
+                            {address2 && (
+                                <>
+                                    <span className="text-gray-300 hidden sm:inline">
+                                        |
+                                    </span>
+                                    <a
+                                        href={mapsUrl2}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-1.5 text-gray-700 hover:text-amber-700 transition-colors"
+                                    >
+                                        <svg
+                                            className="w-4 h-4 text-orange-500 flex-shrink-0"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                            />
+                                        </svg>
+                                        <span className="font-medium text-xs sm:text-sm">
+                                            {address2}
+                                        </span>
+                                    </a>
+                                </>
+                            )}
+                        </div>
+                        <span className="text-gray-300 hidden sm:inline">
+                            |
+                        </span>
+                        {/* Time */}
                         <div className="flex items-center gap-1.5 text-gray-700">
                             <svg
                                 className="w-4 h-4 text-green-500"
@@ -178,7 +261,7 @@ export default async function HomePage() {
                                 />
                             </svg>
                             <span className="font-medium">
-                                {meta.time_open} - {meta.time_close}
+                                {meta.time_open} & {meta.time_close}
                             </span>
                         </div>
                     </div>
@@ -291,19 +374,19 @@ export default async function HomePage() {
                             href={getZaloUrl(meta.hotline)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-500 hover:text-blue-500 transition-colors"
+                            className="hover:opacity-70 transition-opacity"
                             title="Zalo"
                         >
-                            <svg
+                            <Image
+                                src="/zalo.svg"
+                                alt="Zalo"
+                                width={24}
+                                height={24}
                                 className="w-6 h-6"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-                            </svg>
+                            />
                         </a>
                         <a
-                            href={mapsUrl}
+                            href={mapsUrl1}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-500 hover:text-green-600 transition-colors"
@@ -345,8 +428,8 @@ export default async function HomePage() {
                 </div>
             </footer>
 
-            {/* Floating CTA for mobile */}
-            <FloatingCTA hotline={meta.hotline} />
+            {/* Floating Contact Buttons */}
+            <FloatingContact hotline={meta.hotline} />
         </main>
     );
 }
